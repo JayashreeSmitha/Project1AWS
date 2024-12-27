@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('init') {
+            steps {
+                script {
+                    echo 'Initializing Terraform...'
+                    ls -al
+                    // Your initialization logic here, e.g., `terraform init`
+                }
+            }
+        }
+
+        stage('plan') {
+            steps {
+                script {
+                    echo 'Generating Terraform Plan...'
+                    // Your plan logic here, e.g., `terraform plan`
+                }
+            }
+        }
+}
