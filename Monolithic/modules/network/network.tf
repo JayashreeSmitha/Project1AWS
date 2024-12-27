@@ -86,7 +86,7 @@ resource "aws_route_table_association" "public_route_subnet_merge_2" {
 # route table for private subnets
 resource "aws_route_table" "private_subnet_route" {
   vpc_id         = aws_vpc.main.id
-  route          = {
+  route           {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.nat_az1.id
   }

@@ -8,21 +8,14 @@ module "network" {
   region = var.region
 }
 
-# module "compute" {
-#   source = "./modules/compute"
-#   region = var.region
-#   vpc_id = module.network.vpc_id
-#   private_subnet_ids = [module.network.private_subnet_az1_id, module.network.private_subnet_az2_id]
-# }
-
-# module "database" {
-#   source = "./modules/database"
-#   region = var.region
-#   vpc_id = module.network.vpc_id
-# }
+ module "compute" {
+   source = "../modules/compute"
+   ami_id = var.ami_id
+   instance_type = var.instance_type
+ }
 
 # module "alb" {
-#   source = "./modules/alb"
+#   source = "../modules/alb"
 #   region = var.region
 #   vpc_id = module.network.vpc_id
 #   public_subnet_ids = [module.network.public_subnet_az1_id, module.network.public_subnet_az2_id]
