@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     echo 'Initializing Terraform...'
-                    ls -al
+                    sh 'ls -al'
                     // Your initialization logic here, e.g., `terraform init`
                 }
             }
