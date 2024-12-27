@@ -6,8 +6,7 @@ pipeline {
             steps {
                 script {
                     echo 'Initializing Terraform...'
-                    sh 'cd Monolithic/frontend && sudo terraform init -reconfigure'
-                    // Your initialization logic here, e.g., `terraform init`
+                    sh 'cd Monolithic/frontend && sudo terraform init'
                 }
             }
         }
@@ -16,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'Generating Terraform Plan...'
-                    sh 'cd Monolithic/frontend && sudo terraform plan'
+                    sh 'cd Monolithic/frontend && sudo terraform plan -var-file=dev.tfvars'
                 }
             }
         }
