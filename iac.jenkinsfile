@@ -7,7 +7,7 @@ pipeline {
                 script {
                     echo 'Initializing Terraform...'
                     sh 'ls -al'
-                    sh 'cd Monolithic/frontend && terraform init -reconfigure'
+                    sh 'cd Monolithic/frontend && sudo terraform init -reconfigure'
                     // Your initialization logic here, e.g., `terraform init`
                 }
             }
