@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo 'Creating the resouce---Apply....'
-                    sh 'cd Monolithic/frontend && sudo terraform apply -var-file=dev.tfvars'
+                    sh 'cd Monolithic/frontend && sudo terraform apply -var-file=dev.tfvars -auto-approve'
                 }
             }
         }
