@@ -5,14 +5,13 @@ pipeline {
         choice(name: 'ACTION', choices: ['Destroy', 'skip'], description: 'Choose whether to Destroy the Terraform changes or skip.')
     }
 
-
     stages {
         stage('init') {
             steps {
                 script {
                     echo 'Initializing Terraform...'
                     sh 'cd Monolithic/frontend && sudo terraform init'
-                       }
+                }
             }
         }
 
@@ -24,10 +23,11 @@ pipeline {
                 }
             }
         }
+
         stage('apply') {
             steps {
                 script {
-                    echo 'Creating the resouce---Apply....'
+                    echo 'Creating the resource---Apply....'
                     sh 'cd Monolithic/frontend && sudo terraform apply -var-file=dev.tfvars -auto-approve'
                 }
             }
@@ -36,17 +36,17 @@ pipeline {
         stage('Destroy') {
             steps {
                 script {
+                    // Log the selected action
+                    echo "User selected: ${params.ACTION}"
+
                     if (params.ACTION == 'Destroy') {
-                    echo 'Removing the resouce---Destroy....'
-                    sh 'cd Monolithic/frontend && sudo terraform destroy -var-file=dev.tfvars -auto-approve'
-                }
-                else{
+                        echo 'Removing the resource---Destroy....'
+                        sh 'cd Monolithic/frontend && sudo terraform destroy -var-file=dev.tfvars -auto-approve'
+                    } else {
                         echo 'Skipping Terraform Destroy as per user choice.'
                     }
+                }
             }
         }
-      
-    }
     }
 }
-
