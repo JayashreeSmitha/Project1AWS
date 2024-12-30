@@ -19,5 +19,14 @@ pipeline {
                 }
             }
         }
+        stage('apply') {
+            steps {
+                script {
+                    echo 'Creating the resouce---Apply....'
+                    sh 'cd Monolithic/frontend && sudo terraform apply -var-file=dev.tfvars'
+                }
+            }
+        }
+
     }
 }
