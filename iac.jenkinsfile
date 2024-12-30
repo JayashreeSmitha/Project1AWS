@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(name: 'ACTION', choices: ['Destroy', 'skip'], description: 'Choose whether to Destroy the Terraform changes or skip.')
+    }
+
+
     stages {
         stage('init') {
             steps {
@@ -28,5 +33,18 @@ pipeline {
             }
         }
 
+        stage('Destroy') {
+            steps {
+                script {
+                    if (params.ACTION == 'Destroy') {
+                    echo 'Removing the resouce---Destroy....'
+                    sh 'cd Monolithic/frontend && sudo terraform destroy -var-file=dev.tfvars -auto-approve'
+                }
+                else{
+                        echo 'Skipping Terraform Destroy as per user choice.'
+                    }
+            }
+        }
+      
     }
 }
