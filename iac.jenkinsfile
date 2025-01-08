@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(name: 'ACTION', choices: ['Destroy', 'skip'], description: 'Choose whether to Destroy the Terraform changes or skip.')
     }
-
+    
     stages {
         stage('init') {
             steps {
@@ -29,6 +29,15 @@ pipeline {
                 script {
                     echo 'Creating the resource---Apply....'
                     sh 'cd Monolithic/frontend && sudo terraform apply -var-file=dev.tfvars -auto-approve'
+                }
+            }
+        }
+         stage('Ansible Playbook') {
+            steps {
+                script {
+                    echo 'Executing Ansible Playbook...'
+                    // Make sure you replace with your playbook path and inventory if needed
+                    sh 'ansible-playbook -i inventory/hosts playbook.yml'
                 }
             }
         }

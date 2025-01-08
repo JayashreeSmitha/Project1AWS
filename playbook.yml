@@ -1,0 +1,23 @@
+name: Install Apache and copy sample HTML file
+hosts: webservers
+become: yes # This will allow the tasks to run with elevated privileges (sudo)
+tasks:
+name: Install Apache HTTP server
+package:
+name: httpd
+state: present # Ensures Apache is installed
+name: Ensure Apache service is started and enabled
+service:
+name: httpd
+state: started # Start Apache
+enabled: yes # Enable Apache to start on boot
+name: Copy the sample HTML file to the Apache web directory
+copy:
+src: /path/to/local/sample.html # Replace with the path to your local sample HTML file
+dest: /var/www/html/index.html # Default location for Apache's index file
+name: Set appropriate permissions for the HTML file
+file:
+path: /var/www/html/index.html
+owner: apache
+group: apache
+mode: '0644' # Ensure read permissions for others and write permissions for owner
